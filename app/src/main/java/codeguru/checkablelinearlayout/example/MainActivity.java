@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -15,15 +17,19 @@ public class MainActivity extends ActionBarActivity {
             "vel", "ligula", "vitae", "arcu", "aliquet", "mollis", "etiam",
             "vel", "erat", "placerat", "ante", "porttitor", "sodales",
             "pellentesque", "augue", "purus" };
+    private ListView mList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView list = (ListView) findViewById(android.R.id.list);
+        mList = (ListView) findViewById(android.R.id.list);
         ListAdapter adapter = new ArrayAdapter<>(this, R.layout.row, R.id.word, words);
-        list.setAdapter(adapter);
+        mList.setAdapter(adapter);
+
+        mList.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
+        mList.setMultiChoiceModeListener(new ExampleMultiChoiceModeListener(this));
     }
 
 
@@ -45,4 +51,17 @@ public class MainActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void toastWords() {
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < words.length; ++i) {
+            if (mList.isItemChecked(i)) {
+                builder.append(words[i]).append("\n");
+            }
+        }
+
+        Toast.makeText(this, builder.toString(), Toast.LENGTH_LONG).show();
+    }
+
 }
