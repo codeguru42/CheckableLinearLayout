@@ -5,7 +5,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -25,7 +24,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         mList = (ListView) findViewById(android.R.id.list);
-        ListAdapter adapter = new ArrayAdapter<>(this, R.layout.row, R.id.word, words);
+        ListAdapter adapter = new CheckableAdapter<>(this, R.layout.row, R.id.word, words);
         mList.setAdapter(adapter);
 
         mList.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
