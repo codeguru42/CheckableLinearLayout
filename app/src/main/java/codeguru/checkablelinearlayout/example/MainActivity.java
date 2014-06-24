@@ -1,16 +1,29 @@
 package codeguru.checkablelinearlayout.example;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 public class MainActivity extends ActionBarActivity {
+
+    private static final String[] words = { "lorem", "ipsum", "dolor",
+            "sit", "amet", "consectetuer", "adipiscing", "elit", "morbi",
+            "vel", "ligula", "vitae", "arcu", "aliquet", "mollis", "etiam",
+            "vel", "erat", "placerat", "ante", "porttitor", "sodales",
+            "pellentesque", "augue", "purus" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ListView list = (ListView) findViewById(android.R.id.list);
+        ListAdapter adapter = new ArrayAdapter<>(this, R.layout.row, R.id.word, words);
+        list.setAdapter(adapter);
     }
 
 
